@@ -776,6 +776,10 @@ class Downshift extends Component {
       }
 
       if (
+        // ti&m customized: In our case, we focus the dialog body initially if there's no default focusable element in the dialog.
+        // But since the downshift menu is within the dialog body, downshift recognizes the focus to be outside if it and closes
+        // the dialog. So we apply a patch to check if the menu is within the active element.
+        !activeElement?.contains(this._menuNode) &&
         (activeElement == null || activeElement.id !== this.inputId) &&
         activeElement !== blurTarget // Do nothing if we refocus the same element again (to solve issue in Safari on iOS)
       ) {
